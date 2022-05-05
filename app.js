@@ -4,6 +4,7 @@ const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const fs = require('fs');
 const { join } = require('path');
+const logger = require('morgan');
 const client = new Client();
 
 
@@ -44,6 +45,7 @@ client.initialize();
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(logger('dev'));
 
 
 
