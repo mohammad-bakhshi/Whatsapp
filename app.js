@@ -61,15 +61,19 @@ app.get('/getqr', (req, res) => {
         .catch(() => sendQr(res));
 })
 
-app.post('/:phone', async (req, res) => {
-    const phoneNumber = req.params.phone;
-    const message = req.body.message;
-    const result = await client.sendMessage(phoneNumber + '@c.us', message);
-    if (result) {
-        res.send('Message send successfully.')
-    }
-    else {
-        res.send('error');
+app.post('/send', async (req, res) => {
+    try {
+        const phoneNumber = req.body.phone;
+        const message = req.body.message;
+        const result = await client.sendMessage(phoneNumber + '@c.us', message);
+        if (result) {
+            res.send('Message send successfully.')
+        }
+        else {
+            res.send('error');
+        }
+    } catch (error) {
+        console.log(error);
     }
 })
 
